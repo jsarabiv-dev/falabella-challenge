@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://dbUser:dbUserPassword@cluster0.kylpc.mongodb.net
+      database: falabella
