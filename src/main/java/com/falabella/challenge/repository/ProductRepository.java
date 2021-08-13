@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ProductRepository {
 
-    Product findBySku(String id);
-    void deleteBySku(String id);
+    Product findBySku(Integer id);
+    void deleteBySku(Integer id);
     List<Product> findAll();
     Product update(Product productUpdated);
     Product save(Product product);

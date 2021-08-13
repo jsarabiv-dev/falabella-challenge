@@ -1,6 +1,7 @@
 package com.falabella.challenge.repository;
 
 import com.falabella.challenge.model.Product;
+import com.falabella.challenge.repository.dto.ProductEntity;
 import com.falabella.challenge.repository.mapper.ProductEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,7 +19,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 
     @Override
-    public Product findBySku(String sku) {
+    public Product findBySku(Integer sku) {
 
         return productSpringRepository
                 .findBySku(sku)
@@ -28,7 +29,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void deleteBySku(String sku) {
+    public void deleteBySku(Integer sku) {
         productSpringRepository.deleteBySku(sku);
     }
 
@@ -43,7 +44,19 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product update(Product productUpdated) {
-        return productEntityMapper.toModel(productSpringRepository.save(productEntityMapper.toEntity(productUpdated)));
+
+        ProductEntity p = productEntityMapper.toEntity(productUpdated);
+
+        return productSpringRepository.findBySku(productUpdated.getSku()).map(
+                productEntity -> setId(p, productEntity)
+        ).map(productEntity -> productSpringRepository.save(productEntity)).map(productEntity -> productEntityMapper.toModel(productEntity))
+                .orElseThrow( () -> new NoSuchElementException("Product with sku " + productUpdated.getSku() + " not found"));
+
+
+    }
+
+    private ProductEntity setId(ProductEntity p, ProductEntity productEntity) {
+        return p.toBuilder()._id(productEntity.get_id()).build();
     }
 
     @Override

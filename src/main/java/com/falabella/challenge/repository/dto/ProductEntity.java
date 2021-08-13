@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Value
-@Builder
+@Builder(toBuilder = true)
 @Document(collection = "products")
 public class ProductEntity {
 
@@ -16,7 +16,7 @@ public class ProductEntity {
     private final String _id;
 
     @Indexed(unique = true)
-    private String sku;
+    private Integer sku;
 
     private String name;
     private String brand;

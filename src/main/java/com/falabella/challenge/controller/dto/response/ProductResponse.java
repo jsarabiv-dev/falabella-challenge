@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class ProductResponse {
 
-    private String sku;
+    private Integer sku;
     private String name;
     private String brand;
     private String size;

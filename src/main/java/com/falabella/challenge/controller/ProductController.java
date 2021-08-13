@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +23,8 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-    @GetMapping("/live")
-    public boolean live() {
-        return true;
-    }
-
     @GetMapping("/{sku}")
-    public ProductResponse getProductBySku(@PathVariable String sku) {
+    public ProductResponse getProductBySku(@PathVariable Integer sku) {
         return productMapper.mapResponse(productService.findBySku(sku));
     }
 
@@ -43,18 +39,18 @@ public class ProductController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponse saveProduct(@RequestBody ProductRequest request) {
+    public ProductResponse saveProduct(@RequestBody @Valid ProductRequest request) {
         return productMapper.mapResponse(productService.create(productMapper.mapRequest(request)));
     }
 
     @PutMapping("/update")
-    public ProductResponse updateProduct(@RequestBody ProductRequest request) {
+    public ProductResponse updateProduct(@RequestBody @Valid ProductRequest request) {
         return productMapper.mapResponse(productService.update(productMapper.mapRequest(request)));
     }
 
     @DeleteMapping("/{sku}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@PathVariable String sku) {
+    public void deleteProduct(@PathVariable Integer sku) {
         productService.deleteBySku(sku);
     }
 

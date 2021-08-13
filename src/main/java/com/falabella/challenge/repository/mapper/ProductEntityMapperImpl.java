@@ -9,7 +9,6 @@ public class ProductEntityMapperImpl implements ProductEntityMapper {
     @Override
     public Product toModel(ProductEntity entity) {
         return Product.builder()
-                ._id(entity.get_id())
                 .sku(entity.getSku())
                 .name(entity.getName())
                 .brand(entity.getBrand())
@@ -23,7 +22,6 @@ public class ProductEntityMapperImpl implements ProductEntityMapper {
     @Override
     public ProductEntity toEntity(Product model) {
         return ProductEntity.builder()
-                ._id(model.get_id())
                 .sku(model.getSku())
                 .name(model.getName())
                 .brand(model.getBrand())

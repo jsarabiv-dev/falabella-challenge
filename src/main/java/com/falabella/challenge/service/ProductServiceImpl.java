@@ -14,12 +14,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product findBySku(String sku) {
+    public Product findBySku(Integer sku) {
         return productRepository.findBySku(sku);
     }
 
     @Override
-    public void deleteBySku(String sku) {
+    public void deleteBySku(Integer sku) {
         productRepository.deleteBySku(sku);
     }
 
@@ -30,9 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product updateProduct) {
-        Product product = findBySku(updateProduct.getSku());
-        product.setPrice(updateProduct.getPrice());
-        return productRepository.update(product);
+        return productRepository.update(updateProduct);
     }
 
 

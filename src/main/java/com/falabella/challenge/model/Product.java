@@ -1,20 +1,15 @@
 package com.falabella.challenge.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Value
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Product {
 
-    private String _id;
-    private String sku;
+    private Integer sku;
     private String name;
     private String brand;
     private String size;

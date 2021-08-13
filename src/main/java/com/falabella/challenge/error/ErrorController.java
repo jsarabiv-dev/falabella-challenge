@@ -1,6 +1,7 @@
 package com.falabella.challenge.error;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,6 +34,18 @@ public class ErrorController {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .description(request.getDescription(false))
                 .message("looks like something went wrong")
+                .timestamp(LocalDateTime.now()).build();
+
+    }
+
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected ErrorMessage handleUserErrors(
+            Exception ex, WebRequest request) {
+        return ErrorMessage.builder()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .description(request.getDescription(false))
+                .message(ex.getMessage())
                 .timestamp(LocalDateTime.now()).build();
 
     }

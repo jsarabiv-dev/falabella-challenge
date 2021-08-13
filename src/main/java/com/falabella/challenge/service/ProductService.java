@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ProductService {
 
-    Product findBySku(String sku);
+    Product findBySku(Integer sku);
 
-    void deleteBySku(String sku);
+    void deleteBySku(Integer sku);
 
     List<Product> getAll();
 

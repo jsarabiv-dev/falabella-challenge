@@ -9,9 +9,9 @@ import java.util.Optional;
 @Repository
 public interface ProductSpringRepository extends MongoRepository<ProductEntity, String> {
 
-    Optional<ProductEntity> findBySku(String sku);
+    Optional<ProductEntity> findBySku(Integer sku);
 
-    void deleteBySku(String sku);
+    void deleteBySku(Integer sku);
 
 
 
